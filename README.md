@@ -395,3 +395,33 @@ if ($node->port_group == 1){
 新增文件，内容见下
 
 https://github.com/010ada/ss-panel-v3-mod-wiki/blob/master/nodeedit.tpl
+
+## 六、订阅及其他链接生成
+#### app/Utils/URL.php
+1、添加函数，在函数 getItem 前
+```php
+    public static function checkPortGroup($user, $node) {
+        $new_user = clone $user;
+
+        if ($node->port_group == 1) {
+            $u = UserMethod::where('user_id',$user->id)->where('node_id',$node->id)->first();
+            $new_user->port = $u->port;
+            $new_user->passwd = $u->passwd;
+            $new_user->method = $u->method;
+            $new_user->protocol = $u->protocol;
+            $new_user->protocol_param = $u->protocol_param;
+            $new_user->obfs = $u->obfs;
+            $new_user->obfs_param = $u->obfs_param;
+        }
+
+        return $new_user;
+    }
+```
+2、修改 getItem 函数
+```php
+        $node_name = $node->name;
+```
+后面添加一行
+```php
+        $user = URL::checkSingleNode($user, $node);
+```
