@@ -382,6 +382,27 @@ class DbTransfer(object):
             rows.append(d)
         cur.close()
 
+        mykeys = ['user_id','passwd','method','protocol','protocol_param','obfs','obfs_param','port']
+        mycur = conn.cursor()
+        mycur.execute("SELECT " + ','.join(mykeys) + " FROM user_method WHERE `node_id`=" + str(get_config().NODE_ID))
+
+        rows = []
+        passwdlist=mycur.fetchall()
+        for r1 in cur.fetchall():
+            d = {}
+            for column in range(len(keys)):
+                d[keys[column]] = r1[column]
+            for r2 in passwdlist:
+                if (r1[0]==r2[0] and 'passwd' not in d):
+                    for column in range(1,len(mykeys)):
+                        d[mykeys[column]] = r2[column]
+                    rows.append(d)
+                    break
+                else:
+                    continue
+        cur.close()
+        mycur.close()
+
         # 读取节点IP
         # SELECT * FROM `ss_node`  where `node_ip` != ''
         self.node_ip_list = []
