@@ -263,7 +263,7 @@ if ($node->port_group == 1){
 ```javascript
                     min_port: $("#min_port").val(),
                     max_port: $("#max_port").val(),
-                    type: port_group,
+                    port_group: port_group,
 ```
 
 ### resources/views/material/admin/node/edit.tpl 修改同上
