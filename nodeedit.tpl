@@ -155,7 +155,7 @@
             $("#ssr-node-{$node->id}-port").click(function () {
                 $.ajax({
                     type: "POST",
-                    url: "resetsingleport",
+                    url: "usermethodport",
                     dataType: "json",
                     data: {
                         node_id: $("#node_id-node-{$node->id}").val(),
