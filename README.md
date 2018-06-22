@@ -457,3 +457,33 @@ https://github.com/010ada/ss-panel-v3-mod-wiki/blob/master/nodeedit.tpl
 ```php
         $user = URL::checkSingleNode($user, $node);
 ```
+
+## 六、注册
+#### app/Controllers/AuthController.php
+```php
+        $res['ret'] = 1;
+        $res['msg'] = "注册成功！";
+```
+后添加这个
+```php
+        $user = User::where('email',$email)->first();
+        $sort_list = [0,9,10];
+        $nodes = Node::where('port_group',1)->whereIn('sort',$sort_list)->get();
+        foreach ($nodes as $node) {
+            $port_group_array = [
+                'min_port' => $node->min_port,
+                'max_port' => $node->max_port
+            ];
+            $newmethod = new UserMethod();
+            $newmethod->user_id = $user->id;
+            $newmethod->passwd = $user->passwd;
+            $newmethod->port = Tools::getAvPort_ForPortGroup($port_group_array, $node->id);
+            $newmethod->node_id = $node->id;
+            $newmethod->method = Config::get('reg_method');
+            $newmethod->protocol = Config::get('reg_protocol');
+            $newmethod->protocol_param = Config::get('reg_protocol_param');
+            $newmethod->obfs = Config::get('reg_obfs');
+            $newmethod->obfs_param = Config::get('reg_obfs_param');
+            $newmethod->save();
+        }
+```
