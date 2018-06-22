@@ -4,7 +4,7 @@
 
 #### 给ss_node表添加 port_group min_port max_port 字段
 ```mysql
-ALTER TABLE `ss_node` ADD column `port_group` int(11) NOT NULL DEFAULT '0';
+ALTER TABLE `ss_node` ADD column `port_group` int(3) NOT NULL DEFAULT '0';
 ALTER TABLE `ss_node` ADD column `min_port` int(11) NOT NULL DEFAULT '1025';
 ALTER TABLE `ss_node` ADD column `max_port` int(11) NOT NULL DEFAULT '65500';
 ```
