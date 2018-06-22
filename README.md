@@ -180,7 +180,7 @@ if ($node->port_group == 1){
 #### ajax函数 public function ajax
 1、```$total_column = Array(```
 后面添加
-```"port_group" => "端口段","min_port => "最小端口","max_port"=>"最大端口"```
+```"port_group" => "端口段","min_port" => "最小端口","max_port"=>"最大端口"```
 
 2、```$body = $response->getBody();```
 上一行添加
