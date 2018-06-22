@@ -100,7 +100,7 @@ $port_group_array = [
 下一行添加
 ```php
 //  准备一份旧数据
-$old_node = $node;
+$old_node = clone $node;
 
 $node->port_group = $request->getParam('port_group');
 $node->min_port = $request->getParam('min_port');
@@ -267,6 +267,33 @@ if ($node->port_group == 1){
 ```
 
 ### resources/views/material/admin/node/edit.tpl 修改同上
+1、在以下内容
+```html
+                                    <div class="form-group form-group-label">
+                                        <label class="floating-label" for="group">节点群组（分组为数字，不分组请填0）</label>
+                                        <input class="form-control" id="group" type="number" value="0" name="group">
+                                    </div>
+```
+的后面添加这些
+```html
+                                    <div class="form-group form-group-label">
+                                        <div class="checkbox switch">
+                                            <label for="port_group">
+                                                <input {if $node->port_group==1}checked{/if} class="access-hide" id="port_group" name="port_group" type="checkbox"><span class="switch-toggle"></span>启用自定义端口段
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-label">
+                                        <label class="floating-label" for="min_port">最小端口</label>
+                                        <input class="form-control" id="min_port" name="min_port" type="number" value="{$node->min_port}">
+                                    </div>
+                                    <div class="form-group form-group-label">
+                                        <label class="floating-label" for="max_port">最大端口</label>
+                                        <input class="form-control" id="max_port" name="max_port" type="number" value="{$node->max_port}">
+                                    </div>
+
+```
+
 
 ## 五、用户界面
 
