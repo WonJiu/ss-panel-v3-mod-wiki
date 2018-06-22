@@ -269,7 +269,9 @@ if ($node->port_group == 1){
 
 #### config/routes
 ```php
-    $this->get('/', 'App\Controllers\UserController:index');
+// User Center
+$app->group('/user', function () {
+	$this->get('', 'App\Controllers\UserController:index');
 ```
 后加上这三行
 ```php
