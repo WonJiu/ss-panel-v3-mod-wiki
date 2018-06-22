@@ -68,7 +68,10 @@ class UserMethod extends Model
 $node->port_group = $request->getParam('port_group');
 $node->min_port = $request->getParam('min_port');
 $node->max_port = $request->getParam('max_port');
-$port_group_array = [$node->min_port, $node->max_port];
+$port_group_array = [
+    'min_port' => $node->min_port,
+    'max_port' => $node->max_port
+];
 ```
 
 3、return 上一行，添加
@@ -77,7 +80,7 @@ $port_group_array = [$node->min_port, $node->max_port];
         if ( ($node->sort == 0 || $node->sort == 9 || $node->sort == 10) && ($node->port_group != 0) ) {
             $users = User::all();
             foreach ($users as $user) {
-    		    $newmethod = new UserMethod();
+    		$newmethod = new UserMethod();
                 $newmethod->user_id = $user->id;
                 $newmethod->port = Tools::getAvPort_ForPortGroup($port_group_array, $node->id);
                 $newmethod->passwd = $user->passwd;
@@ -102,7 +105,7 @@ $old_node = $node;
 $node->port_group = $request->getParam('port_group');
 $node->min_port = $request->getParam('min_port');
 $node->max_port = $request->getParam('max_port');
-$port_group_array => [
+$port_group_array = [
     'min_port' => $node->min_port,
     'max_port' => $node->max_port
 ];
@@ -373,7 +376,7 @@ $app->group('/user', function () {
 
         $old_port = $user_method->port;
 
-        $port_group_array => [
+        $port_group_array = [
             'min_port' => $node->min_port,
             'max_port' => $node->max_port
         ];
